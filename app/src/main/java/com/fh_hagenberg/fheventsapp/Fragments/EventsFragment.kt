@@ -29,7 +29,7 @@ class EventsFragment : Fragment() {
         val viewPager: ViewPager = rootView.findViewById(R.id.viewPager)
         val adapter = EventsPagerAdapter(childFragmentManager)
 
-        adapter.addFragment(EventListFragment.newInstance(EventListFragment.EVENT_TYPE_OFFICIAL), "Official Events")
+        adapter.addFragment(EventListFragment.newInstance(EventListFragment.EVENT_TYPE_OFFICIAL), "Offizielle Events")
         adapter.addFragment(EventListFragment.newInstance(EventListFragment.EVENT_TYPE_PRIVATE), "Private Events")
 
         viewPager.adapter = adapter

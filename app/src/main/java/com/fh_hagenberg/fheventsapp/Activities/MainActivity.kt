@@ -27,6 +27,10 @@ class MainActivity : AppCompatActivity() {
                     showFragment(EventsFragment())
                     return@setOnItemSelectedListener true
                 }
+                R.id.action_my_events -> {
+                    // showFragment(MyEventsFragment())
+                    return@setOnItemSelectedListener true
+                }
                 R.id.action_profile -> {
                     showFragment(ProfileFragment())
                     return@setOnItemSelectedListener true

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.EventDetailsActivity"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Event details section -->
+        <LinearLayout
+            android:id="@+id/eventDetailsLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/distance_medium">
+
+            <!-- Title -->
+            <TextView
+                android:id="@+id/textViewEventTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Event Title"
+                android:textSize="24dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                style="@style/TextAppearance.MaterialComponents.Overline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/distance_medium"
+                android:text="Date and Time" />
+
+            <TextView
+                android:id="@+id/textViewEventDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Date and Time"
+                android:layout_marginTop="@dimen/distance_small"/>
+
+            <TextView
+                style="@style/TextAppearance.MaterialComponents.Overline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/distance_large"
+                android:text="Description" />
+
+            <TextView
+                android:id="@+id/textViewDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Event Description"
+                android:layout_marginTop="@dimen/distance_small" />
+
+            <TextView
+                style="@style/TextAppearance.MaterialComponents.Overline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/distance_large"
+                android:text="Location" />
+
+            <TextView
+                android:id="@+id/textViewLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Event Location"
+                android:layout_marginTop="@dimen/distance_small"/>
+
+            <!-- Google Maps View for displaying the location -->
+            <fragment
+                android:id="@+id/mapFragment"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="@dimen/distance_small" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/distance_small">
+
+                <!-- Green checkmark button -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonJoinEvent"
+                    style="@style/Widget.MaterialComponents.Button.Icon"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:icon="@drawable/ic_check"
+                    app:iconGravity="textStart"
+                    android:layout_margin="@dimen/distance_small"
+                    app:backgroundTint="@color/green" />
+
+                <!-- Yellow star button -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonInterestedInEvent"
+                    style="@style/Widget.MaterialComponents.Button.Icon"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:icon="@drawable/ic_star"
+                    app:iconGravity="textStart"
+                    android:layout_margin="@dimen/distance_small"
+                    app:backgroundTint="@color/orange" />
+
+                <!-- Red X button -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonLeaveEvent"
+                    style="@style/Widget.MaterialComponents.Button.Icon"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:icon="@drawable/ic_cancel"
+                    app:iconGravity="textStart"
+                    android:layout_margin="@dimen/distance_small"
+                    app:backgroundTint="@color/red" />
+            </LinearLayout>
+
+            <TextView
+                style="@style/TextAppearance.MaterialComponents.Overline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/distance_small"
+                android:text="Participants" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewParticipants"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/distance_small" />
+
+            <TextView
+                style="@style/TextAppearance.MaterialComponents.Overline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/distance_large"
+                android:text="Interested" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewInterested"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/distance_small" />
+
+            <TextView
+                style="@style/TextAppearance.MaterialComponents.Overline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/distance_large"
+                android:text="Event Links" />
+
+            <ListView
+                android:id="@+id/listViewLinks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/distance_small" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

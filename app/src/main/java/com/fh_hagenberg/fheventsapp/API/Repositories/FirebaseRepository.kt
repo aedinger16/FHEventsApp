@@ -6,10 +6,13 @@ import com.fh_hagenberg.fheventsapp.API.Models.EventModel
 import com.fh_hagenberg.fheventsapp.API.UserModel
 import com.google.firebase.Firebase
 import com.google.firebase.Timestamp
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.firestore
+import kotlinx.coroutines.Dispatchers
 
 import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 import java.util.Date
 
 
@@ -20,7 +23,10 @@ class FirebaseRepository : Repository
     override suspend fun getEvent(eventId: String): EventModel? {
         return try {
             val document = firestore.collection("events").document(eventId).get().await()
-            document.toObject(EventModel::class.java)
+            val event = document.toObject(EventModel::class.java)
+            return event?.apply {
+                this.eventId = document.id
+            }
         } catch (e: Exception) {
             null
         }
@@ -29,7 +35,11 @@ class FirebaseRepository : Repository
     override suspend fun getEvents(): List<EventModel> {
         return try {
             val querySnapshot = firestore.collection("events").get().await()
-            querySnapshot.toObjects(EventModel::class.java)
+            val events = querySnapshot.toObjects(EventModel::class.java)
+            for (event in events) {
+                event.eventId = querySnapshot.documents.firstOrNull { it.id == event.eventId }?.id
+            }
+            events
         } catch (e: Exception) {
             emptyList()
         }
@@ -44,8 +54,11 @@ class FirebaseRepository : Repository
                 .get()
                 .await()
 
-            val events = querySnapshot.toObjects(EventModel::class.java)
-            events.filter { event -> event.type.equals("official")}
+            return querySnapshot.documents.mapNotNull { document ->
+                val event = document.toObject(EventModel::class.java)
+                event?.eventId = document.id
+                event.takeIf { it?.type == "official" }
+            }
         } catch (e: Exception) {
             emptyList()
         }
@@ -53,15 +66,18 @@ class FirebaseRepository : Repository
 
     override suspend fun getUpcomingPrivateEvents(): List<EventModel> {
         return try {
-            val currentTimestamp = Timestamp(Date())
+            val currentTimestamp = Timestamp.now()
 
             val querySnapshot = firestore.collection("events")
                 .whereGreaterThan("datetime", currentTimestamp)
                 .get()
                 .await()
 
-            val events = querySnapshot.toObjects(EventModel::class.java)
-            events.filter { event -> event.type.equals("private")}
+            return querySnapshot.documents.mapNotNull { document ->
+                val event = document.toObject(EventModel::class.java)
+                event?.eventId = document.id
+                event.takeIf { it?.type == "private" }
+            }
         } catch (e: Exception) {
             emptyList()
         }
@@ -76,8 +92,11 @@ class FirebaseRepository : Repository
                 .get()
                 .await()
 
-            val events = querySnapshot.toObjects(EventModel::class.java)
-            events.filter { event -> event.type.equals("official")}
+            return querySnapshot.documents.mapNotNull { document ->
+                val event = document.toObject(EventModel::class.java)
+                event?.eventId = document.id
+                event.takeIf { it?.type == "private" }
+            }
         } catch (e: Exception) {
             emptyList()
         }
@@ -93,6 +112,11 @@ class FirebaseRepository : Repository
                 .await()
 
             val events = querySnapshot.toObjects(EventModel::class.java)
+
+            for (event in events) {
+                event.eventId = querySnapshot.documents.firstOrNull { it.id == event.eventId }?.id
+            }
+
             events.filter { event -> event.type.equals("private")}
         } catch (e: Exception) {
             emptyList()
@@ -120,12 +144,67 @@ class FirebaseRepository : Repository
         }
     }
 
+    suspend fun getUsersByIdList(userIds: List<String>): List<UserModel> = withContext(Dispatchers.IO) {
+        try {
+            val users = mutableListOf<UserModel>()
+
+            for (userId in userIds) {
+                val document = firestore.collection("users").document(userId).get().await()
+                val user = document.toObject(UserModel::class.java)
+                if (user != null) {
+                    users.add(user)
+                }
+            }
+
+            return@withContext users
+        } catch (e: Exception) {
+            return@withContext emptyList()
+        }
+    }
+
     override suspend fun saveUser(user: UserModel): OperationResult {
         return try {
             firestore.collection("users").document(user.userId ?: "").set(user).await()
             OperationResult(success = true)
         } catch (e: Exception) {
             OperationResult(success = false, errorMessage = e.message)
+        }
+    }
+
+    suspend fun updateEventInterestedUsers(eventId: String?, interestedUsers: List<String>?): OperationResult {
+        return try {
+            if (eventId != null) {
+                firestore.collection("events")
+                    .document(eventId)
+                    .update("interestedUsers", interestedUsers)
+                    .await()
+            }
+            OperationResult(success = true)
+        } catch (e: Exception) {
+            OperationResult(success = false, errorMessage = e.message)
+        }
+    }
+
+    suspend fun updateEventParticipants(eventId: String?, participants: List<String>?): OperationResult {
+        return try {
+            if (eventId != null) {
+                firestore.collection("events")
+                    .document(eventId)
+                    .update("participants", participants)
+                    .await()
+            }
+            OperationResult(success = true)
+        } catch (e: Exception) {
+            OperationResult(success = false, errorMessage = e.message)
+        }
+    }
+
+    fun getCurrentUserId(): String? {
+        return try {
+            val currentUser = FirebaseAuth.getInstance().currentUser
+            currentUser?.uid
+        } catch (e: Exception) {
+            null
         }
     }
 }

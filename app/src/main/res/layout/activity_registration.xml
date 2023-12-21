@@ -5,18 +5,20 @@
 
     <EditText
         android:id="@+id/editTextEmail"
+        android:autofillHints="emailAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Email (e.g., S2210307057@fhooe.at)"
+        android:hint="@string/text_email_register"
         android:inputType="textEmailAddress"
         android:layout_marginTop="50dp"
         android:padding="10dp"/>
 
     <EditText
         android:id="@+id/editTextPassword"
+        android:autofillHints="password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Password"
+        android:hint="@string/text_password"
         android:inputType="textPassword"
         android:layout_below="@id/editTextEmail"
         android:layout_marginTop="20dp"
@@ -24,9 +26,10 @@
 
     <EditText
         android:id="@+id/editTextConfirmPassword"
+        android:autofillHints="password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Confirm Password"
+        android:hint="@string/text_confirm_password"
         android:inputType="textPassword"
         android:layout_below="@id/editTextPassword"
         android:layout_marginTop="20dp"
@@ -34,18 +37,22 @@
 
     <EditText
         android:id="@+id/editTextFirstName"
+        android:autofillHints="name"
+        android:inputType="textPersonName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="First Name"
+        android:hint="@string/text_first_name"
         android:layout_below="@id/editTextConfirmPassword"
         android:layout_marginTop="20dp"
         android:padding="10dp"/>
 
     <EditText
         android:id="@+id/editTextLastName"
+        android:autofillHints="name"
+        android:inputType="textPersonName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Last Name"
+        android:hint="@string/text_last_name"
         android:layout_below="@id/editTextFirstName"
         android:layout_marginTop="20dp"
         android:padding="10dp"/>
@@ -62,7 +69,7 @@
         android:id="@+id/buttonRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Register"
+        android:text="@string/text_register"
         android:layout_below="@id/spinnerCourse"
         android:layout_marginTop="20dp"
         android:padding="10dp"/>

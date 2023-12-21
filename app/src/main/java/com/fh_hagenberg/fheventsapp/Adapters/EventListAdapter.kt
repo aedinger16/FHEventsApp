@@ -1,11 +1,14 @@
 package com.fh_hagenberg.fheventsapp.Adapters
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.fh_hagenberg.fheventsapp.API.Models.EventModel
+import com.fh_hagenberg.fheventsapp.Activities.EventDetailsActivity
 import com.fh_hagenberg.fheventsapp.R
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -36,8 +39,12 @@ class EventListAdapter(private val eventList: List<EventModel>) :
 
         holder.participantsTextView.text = currentItem.participants?.size.toString().plus(" Teilnehmer")
 
+        // Set OnClickListener to open EventDetailsActivity
         holder.itemView.setOnClickListener {
-            // Aktion beim Klicken auf ein Event-Item
+            val context: Context = holder.itemView.context
+            val intent = Intent(context, EventDetailsActivity::class.java)
+            intent.putExtra("eventId", currentItem.eventId)
+            context.startActivity(intent)
         }
     }
 
