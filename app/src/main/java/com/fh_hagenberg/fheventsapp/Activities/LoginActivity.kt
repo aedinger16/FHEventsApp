@@ -6,6 +6,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+
 import com.fh_hagenberg.fheventsapp.R
 import com.google.firebase.auth.FirebaseAuth
 
@@ -13,6 +14,7 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var editTextEmail: EditText
     private lateinit var editTextPassword: EditText
+
     private lateinit var buttonLogin: Button
     private lateinit var buttonRegister: Button
 
@@ -22,24 +24,22 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        // Firebase Authentication initialisieren
+        initializeViews()
+
         auth = FirebaseAuth.getInstance()
 
-        // UI-Elemente initialisieren
+        buttonLogin.setOnClickListener { loginUser() }
+
+        buttonRegister.setOnClickListener {
+            startActivity(Intent(this, RegistrationActivity::class.java))
+        }
+    }
+
+    private fun initializeViews() {
         editTextEmail = findViewById(R.id.editTextEmail)
         editTextPassword = findViewById(R.id.editTextPassword)
         buttonLogin = findViewById(R.id.buttonLogin)
         buttonRegister = findViewById(R.id.buttonRegister)
-
-        // Login-Button OnClickListener
-        buttonLogin.setOnClickListener {
-            loginUser()
-        }
-
-        // Register-Button OnClickListener
-        buttonRegister.setOnClickListener {
-            startActivity(Intent(this, RegistrationActivity::class.java))
-        }
     }
 
     private fun loginUser() {
@@ -47,21 +47,26 @@ class LoginActivity : AppCompatActivity() {
         val password = editTextPassword.text.toString().trim()
 
         if (email.isEmpty() || password.isEmpty()) {
-            Toast.makeText(this, "Please enter email and password", Toast.LENGTH_SHORT).show()
+            showToast("Please enter email and password")
             return
         }
 
-        // Firebase Authentication: Email und Passwort einloggen
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    // Login erfolgreich
-                    startActivity(Intent(this, MainActivity::class.java))
-                    finish()
+                    navigateToMainActivity()
                 } else {
-                    // Login fehlgeschlagen
-                    Toast.makeText(this, "Login failed. ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                    showToast("Login failed. ${task.exception?.message}")
                 }
             }
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun navigateToMainActivity() {
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
     }
 }

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.CreateEventActivity">
+
+<LinearLayout
+    android:padding="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/create_new_event"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_gravity="center"/>
+
+    <TextView
+        style="@style/TextAppearance.MaterialComponents.Overline"
+        android:layout_marginTop="@dimen/distance_large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/text_event_title" />
+
+    <EditText
+        android:id="@+id/editTextEventTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:hint="@string/hint_event_title"/>
+
+    <TextView
+        style="@style/TextAppearance.MaterialComponents.Overline"
+        android:layout_marginTop="@dimen/distance_large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/text_description"/>
+
+    <EditText
+        android:id="@+id/editTextDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:hint="@string/hint_description"/>
+
+    <TextView
+        style="@style/TextAppearance.MaterialComponents.Overline"
+        android:layout_marginTop="@dimen/distance_large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/text_date_and_time"/>
+
+    <EditText
+        android:id="@+id/editTextDateTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="datetime"
+        android:focusable="false"
+        android:clickable="true"
+        android:hint="@string/hint_date_and_time"/>
+
+    <TextView
+        style="@style/TextAppearance.MaterialComponents.Overline"
+        android:layout_marginTop="@dimen/distance_large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/text_location_name" />
+
+    <EditText
+        android:id="@+id/editTextLocationName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:hint="@string/hint_location_name"/>
+
+    <TextView
+        style="@style/TextAppearance.MaterialComponents.Overline"
+        android:layout_marginTop="@dimen/distance_large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/text_location_address"/>
+
+    <EditText
+        android:id="@+id/editTextLocationAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:hint="@string/hint_location_address"/>
+
+    <TextView
+        style="@style/TextAppearance.MaterialComponents.Overline"
+        android:layout_marginTop="@dimen/distance_large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/text_links"/>
+
+    <EditText
+        android:id="@+id/editTextLinks"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:hint="@string/hint_links"/>
+
+    <Button
+        android:id="@+id/buttonCreateEvent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/text_create_event"
+        android:layout_gravity="end"
+        android:layout_marginTop="16dp"/>
+
+</LinearLayout>
+</ScrollView>

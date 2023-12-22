@@ -1,77 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/editTextEmail"
-        android:autofillHints="emailAddress"
+    <LinearLayout
+        android:padding="@dimen/distance_medium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/text_email_register"
-        android:inputType="textEmailAddress"
-        android:layout_marginTop="50dp"
-        android:padding="10dp"/>
+        android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/editTextPassword"
-        android:autofillHints="password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/text_password"
-        android:inputType="textPassword"
-        android:layout_below="@id/editTextEmail"
-        android:layout_marginTop="20dp"
-        android:padding="10dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_register_yourself"
+            android:textSize="@dimen/font_size_large"
+            android:textStyle="bold"
+            android:layout_gravity="center"/>
 
-    <EditText
-        android:id="@+id/editTextConfirmPassword"
-        android:autofillHints="password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/text_confirm_password"
-        android:inputType="textPassword"
-        android:layout_below="@id/editTextPassword"
-        android:layout_marginTop="20dp"
-        android:padding="10dp"/>
+        <TextView
+            style="@style/TextAppearance.MaterialComponents.Overline"
+            android:layout_marginTop="@dimen/distance_large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_e_mail" />
 
-    <EditText
-        android:id="@+id/editTextFirstName"
-        android:autofillHints="name"
-        android:inputType="textPersonName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/text_first_name"
-        android:layout_below="@id/editTextConfirmPassword"
-        android:layout_marginTop="20dp"
-        android:padding="10dp"/>
+        <EditText
+            android:id="@+id/editTextEmail"
+            android:autofillHints="emailAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:layout_marginTop="@dimen/distance_small" />
 
-    <EditText
-        android:id="@+id/editTextLastName"
-        android:autofillHints="name"
-        android:inputType="textPersonName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/text_last_name"
-        android:layout_below="@id/editTextFirstName"
-        android:layout_marginTop="20dp"
-        android:padding="10dp"/>
+        <TextView
+            style="@style/TextAppearance.MaterialComponents.Overline"
+            android:layout_marginTop="@dimen/distance_large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_password"/>
 
-    <Spinner
-        android:id="@+id/spinnerCourse"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editTextLastName"
-        android:layout_marginTop="20dp"
-        android:padding="10dp"/>
+        <EditText
+            android:id="@+id/editTextPassword"
+            android:autofillHints="password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:layout_marginTop="8dp" />
 
-    <Button
-        android:id="@+id/buttonRegister"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/text_register"
-        android:layout_below="@id/spinnerCourse"
-        android:layout_marginTop="20dp"
-        android:padding="10dp"/>
+        <TextView
+            style="@style/TextAppearance.MaterialComponents.Overline"
+            android:layout_marginTop="@dimen/distance_large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_password"/>
 
-</RelativeLayout>
+        <EditText
+            android:id="@+id/editTextConfirmPassword"
+            android:autofillHints="password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:layout_marginTop="@dimen/distance_small" />
+
+        <TextView
+            style="@style/TextAppearance.MaterialComponents.Overline"
+            android:layout_marginTop="@dimen/distance_large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_firstname" />
+
+        <EditText
+            android:id="@+id/editTextFirstName"
+            android:autofillHints="name"
+            android:inputType="textPersonName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/distance_small" />
+
+        <TextView
+            style="@style/TextAppearance.MaterialComponents.Overline"
+            android:layout_marginTop="@dimen/distance_large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_lastname"/>
+
+        <EditText
+            android:id="@+id/editTextLastName"
+            android:autofillHints="name"
+            android:inputType="textPersonName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/distance_small" />
+
+        <TextView
+            style="@style/TextAppearance.MaterialComponents.Overline"
+            android:layout_marginTop="@dimen/distance_large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_study_program"/>
+
+        <Spinner
+            android:id="@+id/spinnerCourse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/distance_small"
+            android:padding="@dimen/distance_small"/>
+
+        <Button
+            android:id="@+id/buttonRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_register"
+            android:layout_marginTop="@dimen/distance_small"
+            android:layout_gravity="end"/>
+
+    </LinearLayout>
+</ScrollView>

@@ -10,13 +10,13 @@ import com.fh_hagenberg.fheventsapp.Adapters.EventsPagerAdapter
 import com.fh_hagenberg.fheventsapp.R
 import com.google.android.material.tabs.TabLayout
 
-class EventsHistoryFragment : Fragment() {
+class MyEventsFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val rootView = inflater.inflate(R.layout.fragment_events_history, container, false)
+        val rootView = inflater.inflate(R.layout.fragment_my_events, container, false)
 
         setupViewPager(rootView)
 
@@ -35,12 +35,12 @@ class EventsHistoryFragment : Fragment() {
         val adapter = EventsPagerAdapter(childFragmentManager)
 
         adapter.addFragment(
-            EventListFragment.newInstance(EventListFragment.EVENT_TYPE_OFFICIAL_PAST),
-            getString(R.string.title_official_events)
+            EventListFragment.newInstance(EventListFragment.EVENT_TYPE_JOINED_EVENTS),
+            getString(R.string.title_joined)
         )
         adapter.addFragment(
-            EventListFragment.newInstance(EventListFragment.EVENT_TYPE_PRIVATE_PAST),
-            getString(R.string.title_private_events)
+            EventListFragment.newInstance(EventListFragment.EVENT_TYPE_MY_EVENTS),
+            getString(R.string.title_my_events)
         )
 
         return adapter

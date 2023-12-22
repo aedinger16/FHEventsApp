@@ -2,18 +2,30 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="@dimen/distance_medium"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/textViewLogo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="🎉"
+        android:textSize="50sp"
+        android:gravity="center"/>
 
     <EditText
         android:id="@+id/editTextEmail"
         android:autofillHints="emailAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="@dimen/font_size_large"
+        android:layout_below="@+id/textViewLogo"
         android:hint="@string/text_e_mail"
         android:text="s2210307057@fhooe.at"
         android:inputType="textEmailAddress"
-        android:padding="16dp" />
+        android:padding="@dimen/distance_medium"
+        android:gravity="center"/>
 
     <EditText
         android:id="@+id/editTextPassword"
@@ -21,11 +33,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/editTextEmail"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/distance_medium"
         android:hint="@string/text_password"
         android:text="Passwort"
         android:inputType="textPassword"
-        android:padding="16dp" />
+        android:padding="@dimen/distance_medium"
+        android:gravity="center"/>
 
     <Button
         android:id="@+id/buttonLogin"
@@ -33,8 +46,8 @@
         android:layout_height="wrap_content"
         android:text="@string/text_login"
         android:layout_below="@id/editTextPassword"
-        android:layout_marginTop="20dp"
-        android:padding="10dp"/>
+        android:layout_marginTop="@dimen/distance_medium"
+        android:padding="@dimen/distance_small"/>
 
     <Button
         android:id="@+id/buttonRegister"
@@ -42,7 +55,7 @@
         android:layout_height="wrap_content"
         android:text="@string/text_register"
         android:layout_below="@id/buttonLogin"
-        android:layout_marginTop="20dp"
-        android:padding="10dp"/>
+        android:layout_marginTop="@dimen/distance_medium"
+        android:padding="@dimen/distance_small"/>
 
 </RelativeLayout>

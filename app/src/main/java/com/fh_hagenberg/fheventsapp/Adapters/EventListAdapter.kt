@@ -7,9 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+
 import com.fh_hagenberg.fheventsapp.API.Models.EventModel
 import com.fh_hagenberg.fheventsapp.Activities.EventDetailsActivity
 import com.fh_hagenberg.fheventsapp.R
+
 import java.text.SimpleDateFormat
 import java.util.Date
 
@@ -39,7 +41,6 @@ class EventListAdapter(private val eventList: List<EventModel>) :
 
         holder.participantsTextView.text = currentItem.participants?.size.toString().plus(" Teilnehmer")
 
-        // Set OnClickListener to open EventDetailsActivity
         holder.itemView.setOnClickListener {
             val context: Context = holder.itemView.context
             val intent = Intent(context, EventDetailsActivity::class.java)

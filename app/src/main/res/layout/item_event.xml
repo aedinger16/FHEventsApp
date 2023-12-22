@@ -9,9 +9,9 @@
         android:id="@+id/textViewEventTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
+        android:textSize="@dimen/font_size_medium"
         android:textStyle="bold"
-        android:layout_marginBottom="8dp"/>
+        android:layout_marginBottom="@dimen/distance_small"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,15 +23,15 @@
         android:id="@+id/textViewEventDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
+        android:textSize="@dimen/font_size_medium"
         android:layout_marginBottom="4dp"/>
 
     <TextView
         android:id="@+id/textViewEventParticipants"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:textSize="16sp"/>
+        android:layout_marginStart="@dimen/distance_medium"
+        android:textSize="@dimen/font_size_medium"/>
     </LinearLayout>
 
 </RelativeLayout>

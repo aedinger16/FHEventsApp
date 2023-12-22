@@ -9,6 +9,10 @@
         android:icon="@drawable/ic_events"
         android:title="@string/text_events" />
     <item
+        android:id="@+id/action_add_event"
+        android:icon="@drawable/ic_add"
+        android:title="@string/text_add_event" />
+    <item
         android:id="@+id/action_my_events"
         android:icon="@drawable/ic_my_events"
         android:title="@string/my_events" />

@@ -8,10 +8,12 @@ import android.widget.EditText
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+
 import com.fh_hagenberg.fheventsapp.API.Helper.OperationResult
 import com.fh_hagenberg.fheventsapp.API.Repositories.FirebaseRepository
 import com.fh_hagenberg.fheventsapp.API.UserModel
 import com.fh_hagenberg.fheventsapp.R
+
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -32,7 +34,15 @@ class RegistrationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration)
 
-        // UI-Elemente initialisieren
+        initializeViews()
+        setupCourseSpinner()
+
+        buttonRegister.setOnClickListener {
+            registerUser()
+        }
+    }
+
+    private fun initializeViews() {
         editTextEmail = findViewById(R.id.editTextEmail)
         editTextPassword = findViewById(R.id.editTextPassword)
         editTextConfirmPassword = findViewById(R.id.editTextConfirmPassword)
@@ -40,28 +50,13 @@ class RegistrationActivity : AppCompatActivity() {
         editTextLastName = findViewById(R.id.editTextLastName)
         spinnerCourse = findViewById(R.id.spinnerCourse)
         buttonRegister = findViewById(R.id.buttonRegister)
-
-        // Spinner (Dropdown) für den Studiengang (Course) einrichten
-        setupCourseSpinner()
-
-        // Register-Button OnClickListener
-        buttonRegister.setOnClickListener {
-            registerUser()
-        }
     }
 
     private fun setupCourseSpinner() {
-        val courses = arrayOf("Artificial Intelligence Solutions", "Automotive Computing", "Design of Digital Products", "Digital Arts",
-            "Hardware-Software-Design", "Kommunikation, Wissen, Medien", "Medientechnik und -design", "Medizin- und Bioinformatik", "Mobile Computing",
-            "Sichere Informationssysteme", "Software Engineering", "Data Science und Engineering", "Embedded Systems Design",
-            "Energy Informatics", "Human-Centered Computing", "Information Engineering und -Management", "Information Security Management",
-            "Interactive Media")
+        val courses = resources.getStringArray(R.array.course_array)
         courses.sort()
 
-        // ArrayAdapter für Spinner erstellen
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, courses)
-
-        // Adapter dem Spinner zuweisen
         spinnerCourse.adapter = adapter
     }
 
@@ -74,20 +69,19 @@ class RegistrationActivity : AppCompatActivity() {
         val course = spinnerCourse.selectedItem.toString()
 
         if (email.isEmpty() || password.isEmpty() || firstName.isEmpty() || lastName.isEmpty()) {
-            Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
+            showToast("Please fill in all fields")
             return
         }
 
         if (password != confirmPassword) {
-            Toast.makeText(this, "Password and confirmation do not match", Toast.LENGTH_SHORT).show()
+            showToast("Password and confirmation do not match")
             return
         }
 
-        // Benutzer mit FirebaseRepository erstellen
         GlobalScope.launch(Dispatchers.Main) {
             val user = UserModel(
                 userId = "", // Das wird von Firebase erstellt
-                name = firstName.plus(" ").plus(lastName),
+                name = "$firstName $lastName",
                 profileImageUrl = "https://robohash.org/62.240.134.175.png", // TODO Just for testing
                 role = "student",
                 course = course,
@@ -96,18 +90,16 @@ class RegistrationActivity : AppCompatActivity() {
             val result: OperationResult = repository.saveUser(user)
 
             if (result.success) {
-                // Benutzer erfolgreich erstellt
-                Toast.makeText(this@RegistrationActivity, "Registration successful", Toast.LENGTH_SHORT).show()
+                showToast("Registration successful")
                 startActivity(Intent(this@RegistrationActivity, LoginActivity::class.java))
                 finish()
             } else {
-                // Fehler bei der Benutzererstellung
-                Toast.makeText(
-                    this@RegistrationActivity,
-                    "Registration failed. ${result.errorMessage}",
-                    Toast.LENGTH_SHORT
-                ).show()
+                showToast("Registration failed. ${result.errorMessage}")
             }
         }
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }

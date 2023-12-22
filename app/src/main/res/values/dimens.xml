@@ -4,4 +4,9 @@
     <dimen name="distance_medium">16dp</dimen>
     <dimen name="distance_large">24dp</dimen>
     <dimen name="height_canteens_details_map">240dp</dimen>
+
+    <dimen name="font_size_small">12sp</dimen>
+    <dimen name="font_size_medium">18sp</dimen>
+    <dimen name="font_size_large">24sp</dimen>
+
 </resources>

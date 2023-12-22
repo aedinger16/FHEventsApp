@@ -14,4 +14,51 @@
     <string name="text_events">Events</string>
     <string name="text_profile">Profil</string>
     <string name="my_events">Meine Events</string>
+    <string name="text_add_event">Event erstellen</string>
+    <string name="title_official_events">Offizielle Events</string>
+    <string name="title_private_events">Private Events</string>
+    <string name="title_joined">Beigetreten</string>
+    <string name="title_my_events">Meine Events</string>
+    <string name="create_new_event">Neues Event erstellen</string>
+    <string name="text_event_title">Event Titel</string>
+    <string name="text_description">Beschreibung</string>
+    <string name="text_date_and_time">Datum und Uhrzeit</string>
+    <string name="text_location_name">Name des Veranstaltungsortes</string>
+    <string name="text_location_address">Adresse des Veranstaltungsortes</string>
+    <string name="text_links">Links</string>
+    <string name="text_create_event">Event erstellen</string>
+    <string name="hint_event_title">z.B. Flunky Ball Turnier</string>
+    <string name="hint_description">z.B. Flunky Ball Turnier mit tollen Preisen und dem besten Bier der Region</string>
+    <string name="hint_date_and_time">z.B. 16.01.2024 17:00</string>
+    <string name="hint_location_name">z.B. Studentenheim Hagenberg</string>
+    <string name="hint_location_address">z.B. Softwarepark 23, 4232 Hagenberg</string>
+    <string name="hint_links">z.B. www.drive.com/flunky-ball (optional)</string>
+    <string name="text_participants">Teilnehmer</string>
+    <string name="text_interested">Interessiert</string>
+    <string name="text_firstname">Vorname</string>
+    <string name="text_lastname">Nachname</string>
+    <string name="text_study_program">Studiengang</string>
+    <string name="text_register_yourself">Registriere dich 🎉</string>
+
+    <string-array name="course_array">
+        <item>Artificial Intelligence Solutions</item>
+        <item>Automotive Computing</item>
+        <item>Design of Digital Products</item>
+        <item>Digital Arts</item>
+        <item>Hardware-Software-Design</item>
+        <item>Kommunikation, Wissen, Medien</item>
+        <item>Medientechnik und -design</item>
+        <item>Medizin- und Bioinformatik</item>
+        <item>Mobile Computing</item>
+        <item>Sichere Informationssysteme</item>
+        <item>Software Engineering</item>
+        <item>Data Science und Engineering</item>
+        <item>Embedded Systems Design</item>
+        <item>Energy Informatics</item>
+        <item>Human-Centered Computing</item>
+        <item>Information Engineering und -Management</item>
+        <item>Information Security Management</item>
+        <item>Interactive Media</item>
+        <!-- Weitere Kurse hier hinzufügen -->
+    </string-array>
 </resources>

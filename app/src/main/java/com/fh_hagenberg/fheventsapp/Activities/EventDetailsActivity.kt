@@ -1,6 +1,6 @@
 package com.fh_hagenberg.fheventsapp.Activities
 
-
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -9,8 +9,10 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+
 import com.fh_hagenberg.fheventsapp.API.Models.EventModel
 import com.fh_hagenberg.fheventsapp.API.Repositories.FirebaseRepository
+import com.fh_hagenberg.fheventsapp.API.UserModel
 import com.fh_hagenberg.fheventsapp.Adapters.ParticipantsAdapter
 import com.fh_hagenberg.fheventsapp.R
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -19,6 +21,8 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -26,7 +30,6 @@ import kotlinx.coroutines.withContext
 
 class EventDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
 
-    private lateinit var event: EventModel
     private lateinit var titleTextView: TextView
     private lateinit var dateTextView: TextView
     private lateinit var descriptionTextView: TextView
@@ -39,12 +42,32 @@ class EventDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var buttonInterestedInEvent: Button
     private lateinit var buttonLeaveEvent: Button
 
+    private lateinit var buttonEdit: FloatingActionButton
+
+    private lateinit var event: EventModel
     private val firebaseRepository = FirebaseRepository()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_event_details)
 
+        initViews()
+        setupClickListeners()
+
+        val eventId = intent.getStringExtra("eventId")
+
+        buttonEdit.setOnClickListener {
+            val editEventIntent = Intent(this, CreateEventActivity::class.java)
+            editEventIntent.putExtra("eventId", eventId)
+            startActivity(editEventIntent)
+        }
+
+        if (eventId != null) {
+            loadEventDetails(eventId)
+        }
+    }
+
+    private fun initViews() {
         titleTextView = findViewById(R.id.textViewEventTitle)
         dateTextView = findViewById(R.id.textViewEventDate)
         descriptionTextView = findViewById(R.id.textViewDescription)
@@ -57,28 +80,18 @@ class EventDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
         buttonInterestedInEvent = findViewById(R.id.buttonInterestedInEvent)
         buttonLeaveEvent = findViewById(R.id.buttonLeaveEvent)
 
-        buttonJoinEvent.setOnClickListener {
-            handleJoinEvent()
-        }
+        buttonEdit = findViewById(R.id.buttonEdit)
+    }
 
-        buttonInterestedInEvent.setOnClickListener {
-            handleInterestedInEvent()
-        }
-
-        buttonLeaveEvent.setOnClickListener {
-            handleLeaveEvent()
-        }
-
-        val eventId = intent.getStringExtra("eventId")
-
-        if (eventId != null) {
-            loadEventDetails(eventId)
-        }
+    private fun setupClickListeners() {
+        buttonJoinEvent.setOnClickListener { handleJoinEvent() }
+        buttonInterestedInEvent.setOnClickListener { handleInterestedInEvent() }
+        buttonLeaveEvent.setOnClickListener { handleLeaveEvent() }
     }
 
     private fun isEventInFuture(): Boolean {
         val currentTime = System.currentTimeMillis()
-        return event.datetime?.toDate()?.time ?: 0 > currentTime
+        return (event.datetime?.toDate()?.time ?: 0) > currentTime
     }
 
     private fun loadEventDetails(eventId: String) {
@@ -97,10 +110,12 @@ class EventDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
         locationTextView.text = event.locationName
         descriptionTextView.text = event.description
 
-        // Überprüfe, ob das Event in der Zukunft liegt
+        val isCurrentUserEventCreator = event.organizerId == firebaseRepository.getCurrentUserId()
+
+        buttonEdit.visibility = if (isCurrentUserEventCreator) View.VISIBLE else View.GONE
+
         val isEventInFuture = isEventInFuture()
 
-        // Setze die Sichtbarkeit der Buttons basierend auf dem Ergebnis
         buttonJoinEvent.visibility = if (isEventInFuture) View.VISIBLE else View.GONE
         buttonInterestedInEvent.visibility = if (isEventInFuture) View.VISIBLE else View.GONE
         buttonLeaveEvent.visibility = if (isEventInFuture) View.VISIBLE else View.GONE
@@ -119,8 +134,7 @@ class EventDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
             val participantsList = firebaseRepository.getUsersByIdList(participants)
 
             withContext(Dispatchers.Main) {
-                participantsRecyclerView.layoutManager = LinearLayoutManager(this@EventDetailsActivity)
-                participantsRecyclerView.adapter = ParticipantsAdapter(participantsList)
+                setupRecyclerView(participantsRecyclerView, participantsList)
             }
         }
     }
@@ -132,10 +146,14 @@ class EventDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
             val participantsList = firebaseRepository.getUsersByIdList(interestedUsers)
 
             withContext(Dispatchers.Main) {
-                interestedRecyclerView.layoutManager = LinearLayoutManager(this@EventDetailsActivity)
-                interestedRecyclerView.adapter = ParticipantsAdapter(participantsList)
+                setupRecyclerView(interestedRecyclerView, participantsList)
             }
         }
+    }
+
+    private fun setupRecyclerView(recyclerView: RecyclerView, participantsList: List<UserModel>) {
+        recyclerView.layoutManager = LinearLayoutManager(this@EventDetailsActivity)
+        recyclerView.adapter = ParticipantsAdapter(participantsList)
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
