@@ -9,12 +9,12 @@ import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.firestore
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import kotlinx.coroutines.Dispatchers
-
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import java.util.Date
-
 
 class FirebaseRepository : Repository
 {
@@ -261,6 +261,16 @@ class FirebaseRepository : Repository
         return try {
             val currentUser = FirebaseAuth.getInstance().currentUser
             currentUser?.uid
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    suspend fun getUserRole(userId: String): String? {
+        return try {
+            val documentSnapshot = firestore.collection("users").document(userId).get().await()
+            val user = documentSnapshot.toObject(UserModel::class.java)
+            user?.role
         } catch (e: Exception) {
             null
         }

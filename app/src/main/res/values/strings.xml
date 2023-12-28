@@ -43,22 +43,29 @@
     <string-array name="course_array">
         <item>Artificial Intelligence Solutions</item>
         <item>Automotive Computing</item>
+        <item>Data Science und Engineering</item>
         <item>Design of Digital Products</item>
         <item>Digital Arts</item>
+        <item>Embedded Systems Design</item>
+        <item>Energy Informatics</item>
         <item>Hardware-Software-Design</item>
+        <item>Human-Centered Computing</item>
+        <item>Information Engineering und -Management</item>
+        <item>Information Security Management</item>
+        <item>Interactive Media</item>
         <item>Kommunikation, Wissen, Medien</item>
         <item>Medientechnik und -design</item>
         <item>Medizin- und Bioinformatik</item>
         <item>Mobile Computing</item>
         <item>Sichere Informationssysteme</item>
         <item>Software Engineering</item>
-        <item>Data Science und Engineering</item>
-        <item>Embedded Systems Design</item>
-        <item>Energy Informatics</item>
-        <item>Human-Centered Computing</item>
-        <item>Information Engineering und -Management</item>
-        <item>Information Security Management</item>
-        <item>Interactive Media</item>
-        <!-- Weitere Kurse hier hinzufügen -->
     </string-array>
+    <string name="text_your_profile">Dein Profil</string>
+    <string name="text_update_profile">Profil speichern</string>
+    <string name="text_profilbild">Profilbild</string>
+    <string name="title_profile">Profilübersicht</string>
+    <string name="text_logout">Abmelden</string>
+    <string name="toast_update_picture">Profilbild erfolgreich aktualisiert</string>
+    <string name="toast_update_picture_err">Aktualisieren fehlgeschlagen</string>
+
 </resources>

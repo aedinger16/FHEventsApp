@@ -39,4 +39,11 @@
     <string name="text_lastname">Lastname</string>
     <string name="text_study_program">Study program</string>
     <string name="text_register_yourself">Register yourself 🎉</string>
+    <string name="text_your_profile">Your Profile</string>
+    <string name="text_update_profile">Save Profile</string>
+    <string name="text_profilbild">Profile Picture</string>
+    <string name="title_profile">Profile Overview</string>
+    <string name="text_logout">Logout</string>
+    <string name="toast_update_picture">Profile Picture updated successfully</string>
+    <string name="toast_update_picture_err">Update failed</string>
 </resources>

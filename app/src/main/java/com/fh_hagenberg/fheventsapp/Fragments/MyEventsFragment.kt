@@ -1,16 +1,22 @@
 package com.fh_hagenberg.fheventsapp.Fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
+import com.fh_hagenberg.fheventsapp.Activities.CreateEventActivity
 import com.fh_hagenberg.fheventsapp.Adapters.EventsPagerAdapter
 import com.fh_hagenberg.fheventsapp.R
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayout
 
 class MyEventsFragment : Fragment() {
+
+    private lateinit var addButton: FloatingActionButton
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -20,7 +26,17 @@ class MyEventsFragment : Fragment() {
 
         setupViewPager(rootView)
 
+        addButton = rootView.findViewById(R.id.buttonAdd)
+        addButton.setOnClickListener {
+            launchCreateEventActivity()
+        }
+
         return rootView
+    }
+
+    private fun launchCreateEventActivity() {
+        val intent = Intent(activity, CreateEventActivity::class.java)
+        startActivity(intent)
     }
 
     private fun setupViewPager(rootView: View) {
@@ -35,12 +51,12 @@ class MyEventsFragment : Fragment() {
         val adapter = EventsPagerAdapter(childFragmentManager)
 
         adapter.addFragment(
-            EventListFragment.newInstance(EventListFragment.EVENT_TYPE_JOINED_EVENTS),
-            getString(R.string.title_joined)
-        )
-        adapter.addFragment(
             EventListFragment.newInstance(EventListFragment.EVENT_TYPE_MY_EVENTS),
             getString(R.string.title_my_events)
+        )
+        adapter.addFragment(
+            EventListFragment.newInstance(EventListFragment.EVENT_TYPE_JOINED_EVENTS),
+            getString(R.string.title_joined)
         )
 
         return adapter

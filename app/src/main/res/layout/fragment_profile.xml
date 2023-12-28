@@ -1,14 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Fragments.ProfileFragment">
+    android:layout_height="match_parent">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
+        android:padding="@dimen/distance_medium"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/textViewHeadline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_your_profile"
+            android:textSize="@dimen/font_size_large"
+            android:textStyle="bold"
+            android:layout_gravity="center"/>
+
+        <ImageView
+            android:id="@+id/imageViewProfile"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/distance_medium"
+            android:src="@drawable/ic_profile"
+            android:contentDescription="@string/text_profilbild"
+            android:background="@drawable/circle_background"/>
+
+        <TextView
+            style="@style/TextAppearance.MaterialComponents.Overline"
+            android:layout_marginTop="@dimen/distance_large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_firstname" />
+
+        <EditText
+            android:id="@+id/editTextFirstName"
+            android:autofillHints="name"
+            android:inputType="textPersonName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/distance_small" />
+
+        <TextView
+            style="@style/TextAppearance.MaterialComponents.Overline"
+            android:layout_marginTop="@dimen/distance_large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_lastname"/>
+
+        <EditText
+            android:id="@+id/editTextLastName"
+            android:autofillHints="name"
+            android:inputType="textPersonName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/distance_small" />
+
+        <TextView
+            style="@style/TextAppearance.MaterialComponents.Overline"
+            android:layout_marginTop="@dimen/distance_large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_study_program"/>
+
+        <Spinner
+            android:id="@+id/spinnerCourse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/distance_small"
+            android:padding="@dimen/distance_small"/>
+
+        <Button
+            android:id="@+id/buttonUpdateProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_update_profile"
+            android:layout_marginTop="@dimen/distance_medium"
+            android:layout_gravity="center"/>
+
+        <Button
+            android:id="@+id/buttonLogout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_logout"
+            android:layout_marginTop="@dimen/distance_medium"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
+</ScrollView>

@@ -114,6 +114,15 @@ class CreateEventActivity : AppCompatActivity() {
         GlobalScope.launch(Dispatchers.IO) {
             val geopoint = convertAddressToGeoPoint(locationAddress)
             if (geopoint != null) {
+                val currentUserId = firebaseRepository.getCurrentUserId()
+                val currentUser = firebaseRepository.getUser(currentUserId.toString())
+
+                val eventType = if (currentUser?.role == "admin") {
+                    "official"
+                } else {
+                    "private"
+                }
+
                 val event = EventModel(
                     title = title,
                     datetime = datetime,
@@ -124,7 +133,7 @@ class CreateEventActivity : AppCompatActivity() {
                     interestedUsers = emptyList(),
                     organizerId = firebaseRepository.getCurrentUserId(),
                     participants = emptyList(),
-                    type = "private" // TODO differ between private and official
+                    type = eventType
                 )
 
                 if (eventId != null) {

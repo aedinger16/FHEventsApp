@@ -13,6 +13,7 @@ import com.fh_hagenberg.fheventsapp.API.Helper.OperationResult
 import com.fh_hagenberg.fheventsapp.API.Repositories.FirebaseRepository
 import com.fh_hagenberg.fheventsapp.API.UserModel
 import com.fh_hagenberg.fheventsapp.R
+import com.google.firebase.auth.FirebaseAuth
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -78,25 +79,34 @@ class RegistrationActivity : AppCompatActivity() {
             return
         }
 
-        GlobalScope.launch(Dispatchers.Main) {
-            val user = UserModel(
-                userId = "", // Das wird von Firebase erstellt
-                name = "$firstName $lastName",
-                profileImageUrl = "https://robohash.org/62.240.134.175.png", // TODO Just for testing
-                role = "student",
-                course = course,
-            )
+        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    val firebaseUser = task.result?.user
+                    val userId = firebaseUser?.uid ?: ""
 
-            val result: OperationResult = repository.saveUser(user)
+                    GlobalScope.launch(Dispatchers.Main) {
+                        val user = UserModel(
+                            userId = userId,
+                            name = "$firstName $lastName",
+                            role = "student",
+                            course = course,
+                        )
 
-            if (result.success) {
-                showToast("Registration successful")
-                startActivity(Intent(this@RegistrationActivity, LoginActivity::class.java))
-                finish()
-            } else {
-                showToast("Registration failed. ${result.errorMessage}")
+                        val result: OperationResult = repository.saveUser(user)
+
+                        if (result.success) {
+                            showToast("Registration successful")
+                            startActivity(Intent(this@RegistrationActivity, LoginActivity::class.java))
+                            finish()
+                        } else {
+                            showToast("Registration failed. ${result.errorMessage}")
+                        }
+                    }
+                } else {
+                    showToast("Registration failed. ${task.exception?.message}")
+                }
             }
-        }
     }
 
     private fun showToast(message: String) {
