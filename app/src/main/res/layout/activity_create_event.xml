@@ -14,6 +14,7 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/textViewCreateEventHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/create_new_event"
@@ -112,7 +113,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/text_create_event"
-        android:layout_gravity="end"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"/>
+
+    <Button
+        android:id="@+id/buttonDeleteEvent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/text_delete"
+        android:layout_gravity="center"
+        android:visibility="gone"
         android:layout_marginTop="16dp"/>
 
 </LinearLayout>

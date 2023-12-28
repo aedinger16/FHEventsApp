@@ -94,7 +94,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         app:icon="@drawable/ic_check"
-                        app:iconGravity="textStart"
+                        app:iconGravity="textEnd"
                         android:layout_margin="@dimen/distance_small"
                         app:backgroundTint="@color/green" />
 
@@ -105,7 +105,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         app:icon="@drawable/ic_star"
-                        app:iconGravity="textStart"
+                        app:iconGravity="textEnd"
                         android:layout_margin="@dimen/distance_small"
                         app:backgroundTint="@color/orange" />
 
@@ -116,7 +116,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         app:icon="@drawable/ic_cancel"
-                        app:iconGravity="textStart"
+                        app:iconGravity="textEnd"
                         android:layout_margin="@dimen/distance_small"
                         app:backgroundTint="@color/red" />
                 </LinearLayout>

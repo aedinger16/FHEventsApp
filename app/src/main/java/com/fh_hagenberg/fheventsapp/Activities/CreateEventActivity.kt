@@ -7,8 +7,11 @@ import android.location.Geocoder
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 
 import com.fh_hagenberg.fheventsapp.API.Models.EventModel
 import com.fh_hagenberg.fheventsapp.API.Repositories.FirebaseRepository
@@ -32,7 +35,10 @@ class CreateEventActivity : AppCompatActivity() {
     private lateinit var editTextLocationAddress: EditText
     private lateinit var editTextDateTime: EditText
 
+    private lateinit var textViewCreateEventHeader : TextView
+
     private lateinit var buttonCreateEvent: Button
+    private lateinit var buttonDeleteEvent: Button
 
     private lateinit var calendar: Calendar
 
@@ -45,11 +51,7 @@ class CreateEventActivity : AppCompatActivity() {
 
         eventId = intent.getStringExtra("eventId")
         buttonCreateEvent = findViewById(R.id.buttonCreateEvent)
-
-        if (eventId != null) {
-            loadEventData(eventId!!)
-            buttonCreateEvent.text = "Aktualisieren"
-        }
+        buttonDeleteEvent = findViewById(R.id.buttonDeleteEvent)
 
         editTextEventTitle = findViewById(R.id.editTextEventTitle)
         editTextDescription = findViewById(R.id.editTextDescription)
@@ -57,10 +59,20 @@ class CreateEventActivity : AppCompatActivity() {
         editTextLocationName = findViewById(R.id.editTextLocationName)
         editTextLocationAddress = findViewById(R.id.editTextLocationAddress)
         editTextDateTime = findViewById(R.id.editTextDateTime)
+        textViewCreateEventHeader = findViewById(R.id.textViewCreateEventHeader)
+
+        if (eventId != null) {
+            loadEventData(eventId!!)
+
+            buttonCreateEvent.text = "Aktualisieren"
+            textViewCreateEventHeader.text = "Event bearbeiten"
+            buttonDeleteEvent.isVisible = true
+        }
 
         calendar = Calendar.getInstance()
 
         buttonCreateEvent.setOnClickListener { createEvent() }
+        buttonDeleteEvent.setOnClickListener { deleteEvent() }
         editTextDateTime.setOnClickListener { showDateTimePickerDialog() }
     }
 
@@ -145,6 +157,30 @@ class CreateEventActivity : AppCompatActivity() {
             } else {
                 showToast("Adresse konnte nicht gefunden werden")
             }
+        }
+    }
+
+    private fun deleteEvent() {
+        if (eventId != null) {
+            val alertDialogBuilder = AlertDialog.Builder(this)
+            alertDialogBuilder.setTitle("Confirm Deletion")
+            alertDialogBuilder.setMessage("Are you sure you want to delete this event?")
+            alertDialogBuilder.setPositiveButton("Yes") { _, _ ->
+                GlobalScope.launch(Dispatchers.IO) {
+                    val result = firebaseRepository.deleteEvent(eventId!!)
+                    if (result.success) {
+                        showToast("Event deleted successfully")
+                        finish()
+                    } else {
+                        showToast("Failed to delete event. ${result.errorMessage}")
+                    }
+                }
+            }
+            alertDialogBuilder.setNegativeButton("No") { _, _ ->
+            }
+
+            val alertDialog = alertDialogBuilder.create()
+            alertDialog.show()
         }
     }
 

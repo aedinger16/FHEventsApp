@@ -69,6 +69,11 @@ class EventListFragment : Fragment() {
         loadEvents()
     }
 
+    override fun onResume() {
+        super.onResume()
+        loadEvents()
+    }
+
     private fun loadEvents() {
         GlobalScope.launch(Dispatchers.IO) {
             val eventList = when (eventType) {

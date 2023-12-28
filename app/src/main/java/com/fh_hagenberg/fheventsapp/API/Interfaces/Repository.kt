@@ -13,6 +13,7 @@ interface Repository {
     suspend fun getPastOfficialEvents(): List<EventModel>
     suspend fun getPastPrivateEvents(): List<EventModel>
     suspend fun saveEvent(event: EventModel): OperationResult
+    suspend fun deleteEvent(eventId: String): OperationResult
     suspend fun updateEvent(event: EventModel): OperationResult
     suspend fun updateEventInterestedUsers(eventId: String?, interestedUsers: List<String>?): OperationResult
     suspend fun updateEventParticipants(eventId: String?, participants: List<String>?): OperationResult

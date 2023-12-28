@@ -140,6 +140,15 @@ class FirebaseRepository : Repository
         }
     }
 
+    override suspend fun deleteEvent(eventId: String): OperationResult {
+        return try {
+            firestore.collection("events").document(eventId).delete().await()
+            OperationResult(success = true)
+        } catch (e: Exception) {
+            OperationResult(success = false, errorMessage = e.message)
+        }
+    }
+
     override suspend fun updateEvent(event: EventModel): OperationResult {
         return try {
             firestore.collection("events").document(event.eventId ?: "").set(event).await()
