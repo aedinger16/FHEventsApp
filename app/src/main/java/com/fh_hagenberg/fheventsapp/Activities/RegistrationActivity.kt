@@ -79,6 +79,11 @@ class RegistrationActivity : AppCompatActivity() {
             return
         }
 
+        if (!isValidEmail(email)) {
+            showToast("Invalid FH email format")
+            return
+        }
+
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
@@ -111,5 +116,10 @@ class RegistrationActivity : AppCompatActivity() {
 
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun isValidEmail(email: String): Boolean {
+        val regex = Regex("^[Ss]\\d{10}@(fhooe\\.at|students\\.fh-hagenberg\\.at)\$")
+        return regex.matches(email)
     }
 }
