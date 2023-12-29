@@ -86,9 +86,11 @@ class EventListFragment : Fragment() {
                 else -> firebaseRepository.getEvents()
             }
 
+            val sortedEventList = eventList.sortedByDescending { it.datetime?.toDate()?.time }
+
             withContext(Dispatchers.Main) {
                 loadingSpinner.visibility = View.GONE
-                eventAdapter = EventListAdapter(eventList)
+                eventAdapter = EventListAdapter(sortedEventList)
                 recyclerView.adapter = eventAdapter
             }
         }

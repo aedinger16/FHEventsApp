@@ -119,7 +119,8 @@ class CreateEventActivity : AppCompatActivity() {
         val title = editTextEventTitle.text.toString()
         val datetime = Timestamp(calendar.time)
         val description = editTextDescription.text.toString()
-        val links = listOf(editTextLinks.text.toString())
+        val linksText = editTextLinks.text.toString()
+        val links = linksText.split("\n").map { it.trim() }
         val locationName = editTextLocationName.text.toString()
         val locationAddress = editTextLocationAddress.text.toString()
 
@@ -186,8 +187,16 @@ class CreateEventActivity : AppCompatActivity() {
 
     private fun updateEvent(event: EventModel) {
         GlobalScope.launch(Dispatchers.IO) {
-            firebaseRepository.updateEvent(event)
-            finish()
+            val existingEvent = firebaseRepository.getEventById(event.eventId ?: "")
+            if (existingEvent != null) {
+                event.participants = existingEvent.participants
+                event.interestedUsers = existingEvent.interestedUsers
+
+                firebaseRepository.updateEvent(event)
+                finish()
+            } else {
+                showToast("Failed to update event. Event not found.")
+            }
         }
     }
 

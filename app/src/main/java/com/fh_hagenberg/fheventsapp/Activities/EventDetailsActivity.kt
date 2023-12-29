@@ -1,9 +1,12 @@
 package com.fh_hagenberg.fheventsapp.Activities
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.ListView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -37,6 +40,8 @@ class EventDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var participantsRecyclerView: RecyclerView
     private lateinit var interestedRecyclerView: RecyclerView
+
+    private lateinit var linksListView: ListView
 
     private lateinit var buttonJoinEvent: Button
     private lateinit var buttonInterestedInEvent: Button
@@ -72,6 +77,8 @@ class EventDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
         dateTextView = findViewById(R.id.textViewEventDate)
         descriptionTextView = findViewById(R.id.textViewDescription)
         locationTextView = findViewById(R.id.textViewLocation)
+
+        linksListView = findViewById(R.id.listViewLinks)
 
         participantsRecyclerView = findViewById(R.id.recyclerViewParticipants)
         interestedRecyclerView = findViewById(R.id.recyclerViewInterested)
@@ -109,6 +116,14 @@ class EventDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
         dateTextView.text = event.datetime?.toDate().toString()
         locationTextView.text = event.locationName
         descriptionTextView.text = event.description
+
+        val linksAdapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, event.links ?: emptyList())
+        linksListView.adapter = linksAdapter
+        linksListView.setOnItemClickListener { _, _, position, _ ->
+            val clickedLink = linksAdapter.getItem(position)
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(clickedLink))
+            startActivity(browserIntent)
+        }
 
         val isCurrentUserEventCreator = event.organizerId == firebaseRepository.getCurrentUserId()
 

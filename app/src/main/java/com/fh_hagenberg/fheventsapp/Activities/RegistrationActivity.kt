@@ -13,6 +13,8 @@ import com.fh_hagenberg.fheventsapp.API.Helper.OperationResult
 import com.fh_hagenberg.fheventsapp.API.Repositories.FirebaseRepository
 import com.fh_hagenberg.fheventsapp.API.UserModel
 import com.fh_hagenberg.fheventsapp.R
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 
 import kotlinx.coroutines.Dispatchers
@@ -69,12 +71,12 @@ class RegistrationActivity : AppCompatActivity() {
         val lastName = editTextLastName.text.toString().trim()
         val course = spinnerCourse.selectedItem.toString()
 
-        if (email.isEmpty() || password.isEmpty() || firstName.isEmpty() || lastName.isEmpty()) {
+        if (areFieldsEmpty(email, password, firstName, lastName)) {
             showToast("Please fill in all fields")
             return
         }
 
-        if (password != confirmPassword) {
+        if (!isPasswordConfirmed(password, confirmPassword)) {
             showToast("Password and confirmation do not match")
             return
         }
@@ -84,34 +86,61 @@ class RegistrationActivity : AppCompatActivity() {
             return
         }
 
+        registerWithEmailAndPassword(email, password, firstName, lastName, course)
+    }
+
+    private fun areFieldsEmpty(email: String, password: String, firstName: String, lastName: String): Boolean {
+        return email.isEmpty() || password.isEmpty() || firstName.isEmpty() || lastName.isEmpty()
+    }
+
+    private fun isPasswordConfirmed(password: String, confirmPassword: String): Boolean {
+        return password == confirmPassword
+    }
+
+    private fun registerWithEmailAndPassword(
+        email: String,
+        password: String,
+        firstName: String,
+        lastName: String,
+        course: String
+    ) {
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    val firebaseUser = task.result?.user
-                    val userId = firebaseUser?.uid ?: ""
-
-                    GlobalScope.launch(Dispatchers.Main) {
-                        val user = UserModel(
-                            userId = userId,
-                            name = "$firstName $lastName",
-                            role = "student",
-                            course = course,
-                        )
-
-                        val result: OperationResult = repository.saveUser(user)
-
-                        if (result.success) {
-                            showToast("Registration successful")
-                            startActivity(Intent(this@RegistrationActivity, LoginActivity::class.java))
-                            finish()
-                        } else {
-                            showToast("Registration failed. ${result.errorMessage}")
-                        }
-                    }
+                    handleSuccessfulRegistration(task, firstName, lastName, course)
                 } else {
                     showToast("Registration failed. ${task.exception?.message}")
                 }
             }
+    }
+
+    private fun handleSuccessfulRegistration(
+        task: Task<AuthResult>,
+        firstName: String,
+        lastName: String,
+        course: String
+    ) {
+        val firebaseUser = task.result?.user
+        val userId = firebaseUser?.uid ?: ""
+
+        GlobalScope.launch(Dispatchers.Main) {
+            val user = UserModel(
+                userId = userId,
+                name = "$firstName $lastName",
+                role = "student",
+                course = course,
+            )
+
+            val result: OperationResult = repository.saveUser(user)
+
+            if (result.success) {
+                showToast("Registration successful")
+                startActivity(Intent(this@RegistrationActivity, LoginActivity::class.java))
+                finish()
+            } else {
+                showToast("Registration failed. ${result.errorMessage}")
+            }
+        }
     }
 
     private fun showToast(message: String) {
