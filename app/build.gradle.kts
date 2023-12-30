@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace = "com.fh_hagenberg.fheventsapp"
+    namespace = "com.fhhagenberg.fheventsapp"
     compileSdk = 33
 
     defaultConfig {
-        applicationId = "com.fh_hagenberg.fheventsapp"
+        applicationId = "com.fhhagenberg.fheventsapp"
         minSdk = 24
         targetSdk = 33
         versionCode = 1
