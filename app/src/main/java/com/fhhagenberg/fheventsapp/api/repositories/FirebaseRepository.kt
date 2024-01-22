@@ -1,8 +1,8 @@
-package com.fhhagenberg.fheventsapp.api.Repositories
+package com.fhhagenberg.fheventsapp.api.repositories
 
-import com.fhhagenberg.fheventsapp.api.Helper.OperationResult
-import com.fhhagenberg.fheventsapp.api.Interfaces.Repository
-import com.fhhagenberg.fheventsapp.api.Models.EventModel
+import com.fhhagenberg.fheventsapp.api.helper.OperationResult
+import com.fhhagenberg.fheventsapp.api.interfaces.Repository
+import com.fhhagenberg.fheventsapp.api.models.EventModel
 import com.fhhagenberg.fheventsapp.api.UserModel
 import com.google.firebase.Firebase
 import com.google.firebase.Timestamp

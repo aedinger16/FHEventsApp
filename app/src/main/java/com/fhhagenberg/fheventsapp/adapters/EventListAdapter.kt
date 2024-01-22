@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-import com.fhhagenberg.fheventsapp.api.Models.EventModel
+import com.fhhagenberg.fheventsapp.api.models.EventModel
 import com.fhhagenberg.fheventsapp.activities.EventDetailsActivity
 import com.fhhagenberg.fheventsapp.R
 

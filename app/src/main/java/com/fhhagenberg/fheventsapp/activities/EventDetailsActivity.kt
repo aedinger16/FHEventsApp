@@ -13,8 +13,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-import com.fhhagenberg.fheventsapp.api.Models.EventModel
-import com.fhhagenberg.fheventsapp.api.Repositories.FirebaseRepository
+import com.fhhagenberg.fheventsapp.api.models.EventModel
+import com.fhhagenberg.fheventsapp.api.repositories.FirebaseRepository
 import com.fhhagenberg.fheventsapp.api.UserModel
 import com.fhhagenberg.fheventsapp.adapters.ParticipantsAdapter
 import com.fhhagenberg.fheventsapp.R

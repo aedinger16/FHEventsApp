@@ -1,4 +1,4 @@
-package com.fhhagenberg.fheventsapp.api.Helper
+package com.fhhagenberg.fheventsapp.api.helper
 
 data class OperationResult(
     val success: Boolean,

@@ -3,7 +3,7 @@ package com.fhhagenberg.fheventsapp.activities
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.fhhagenberg.fheventsapp.api.Repositories.FirebaseRepository
+import com.fhhagenberg.fheventsapp.api.repositories.FirebaseRepository
 
 import com.fhhagenberg.fheventsapp.fragments.EventsFragment
 import com.fhhagenberg.fheventsapp.fragments.EventsHistoryFragment

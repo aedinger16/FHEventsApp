@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-import com.fhhagenberg.fheventsapp.api.Repositories.FirebaseRepository
+import com.fhhagenberg.fheventsapp.api.repositories.FirebaseRepository
 import com.fhhagenberg.fheventsapp.adapters.EventListAdapter
 import com.fhhagenberg.fheventsapp.R
 

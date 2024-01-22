@@ -10,8 +10,8 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
-import com.fhhagenberg.fheventsapp.api.Helper.OperationResult
-import com.fhhagenberg.fheventsapp.api.Repositories.FirebaseRepository
+import com.fhhagenberg.fheventsapp.api.helper.OperationResult
+import com.fhhagenberg.fheventsapp.api.repositories.FirebaseRepository
 import com.fhhagenberg.fheventsapp.api.UserModel
 import com.fhhagenberg.fheventsapp.activities.LoginActivity
 import com.fhhagenberg.fheventsapp.R

@@ -13,8 +13,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 
-import com.fhhagenberg.fheventsapp.api.Models.EventModel
-import com.fhhagenberg.fheventsapp.api.Repositories.FirebaseRepository
+import com.fhhagenberg.fheventsapp.api.models.EventModel
+import com.fhhagenberg.fheventsapp.api.repositories.FirebaseRepository
 import com.fhhagenberg.fheventsapp.R
 import com.google.firebase.Timestamp
 

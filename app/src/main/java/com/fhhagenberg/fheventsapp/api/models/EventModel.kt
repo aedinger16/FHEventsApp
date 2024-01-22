@@ -1,4 +1,4 @@
-package com.fhhagenberg.fheventsapp.api.Models
+package com.fhhagenberg.fheventsapp.api.models
 
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.GeoPoint

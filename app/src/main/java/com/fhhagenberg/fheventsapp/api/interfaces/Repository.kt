@@ -1,7 +1,7 @@
-package com.fhhagenberg.fheventsapp.api.Interfaces
+package com.fhhagenberg.fheventsapp.api.interfaces
 
-import com.fhhagenberg.fheventsapp.api.Helper.OperationResult
-import com.fhhagenberg.fheventsapp.api.Models.EventModel
+import com.fhhagenberg.fheventsapp.api.helper.OperationResult
+import com.fhhagenberg.fheventsapp.api.models.EventModel
 import com.fhhagenberg.fheventsapp.api.UserModel
 
 interface Repository {

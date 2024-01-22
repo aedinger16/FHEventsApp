@@ -9,8 +9,8 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
-import com.fhhagenberg.fheventsapp.api.Helper.OperationResult
-import com.fhhagenberg.fheventsapp.api.Repositories.FirebaseRepository
+import com.fhhagenberg.fheventsapp.api.helper.OperationResult
+import com.fhhagenberg.fheventsapp.api.repositories.FirebaseRepository
 import com.fhhagenberg.fheventsapp.api.UserModel
 import com.fhhagenberg.fheventsapp.R
 import com.google.android.gms.tasks.Task
